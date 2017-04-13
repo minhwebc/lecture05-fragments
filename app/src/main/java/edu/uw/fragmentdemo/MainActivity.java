@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     public void onSearchSubmitted(String searchTerm) {
         moviesFragment = MoviesFragment.newInstance(searchTerm);
         pagerAdapter.notifyDataSetChanged();
-        viewPager.setCurrentItem(1); //hard-code the shift
+        viewPager.setCurrentItem(1);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
         Log.v(TAG, "Detail for "+movie);
         detailFragment = DetailFragment.newInstance(movie.toString(), movie.imdbId);
         pagerAdapter.notifyDataSetChanged();
-        viewPager.setCurrentItem(2); //hard-code the shift
+        viewPager.setCurrentItem(2);
     }
 
 
@@ -55,14 +55,12 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
 
         @Override
         public Fragment getItem(int position) {
-            //Hard-code the ordering as an example
             if(position == 0) return searchFragment;
             if(position == 1) return moviesFragment;
             if(position == 2) return detailFragment;
-            return null; //just in case
+            return null;
         }
 
-        //work-around for Fragment replacement
         public int getItemPosition(Object object) {
             return POSITION_NONE;
         }
@@ -76,18 +74,6 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
             } else {
                 return 3;
             }
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (viewPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
         }
     }
 }
